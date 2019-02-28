@@ -43,9 +43,16 @@ $(function() {
     });
 
     describe('Menu', function () {
+        /**
+         * Check if menu if hidden by default
+         */
         it('is hidden by default', function () {
             expect(document.querySelector('body').classList.contains('menu-hidden')).toBe(true);
         });
+
+        /**
+         * Check if menu visibility changes on button click
+         */
 
         it('changes visibility on button click', function () {
            let btn = document.querySelector('.menu-icon-link');
@@ -66,15 +73,23 @@ $(function() {
             loadFeed(0, done);
         });
 
-       it('has at least one entry on the DOM', function (done) {
-           let container = document.querySelector('.feed');
-           expect(container.childElementCount).toBeGreaterThan(0);
+        /**
+         * After loadFeed, at least one item is added on the list
+         */
+
+        it('has at least one entry on the DOM', function (done) {
+           let items = document.querySelectorAll('.feed .entry');
+           expect(items.length).toBeGreaterThan(0);
            done();
        });
     });
     
     describe('New Feed Selection', function () {
         let oldFeed, newFeed;
+
+        /**
+         * Async function to change the feed
+         */
 
         beforeEach(function (done) {
             loadFeed(0, () => {
@@ -86,6 +101,10 @@ $(function() {
                 })
             });
         });
+
+        /**
+         * After new feed is loaded, the content has to be different
+         */
 
         it('expect to change content when new feed is loaded', function () {
             expect(oldFeed).not.toEqual(newFeed);
